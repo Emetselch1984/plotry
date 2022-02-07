@@ -206,3 +206,45 @@ fig = go.Figure(
     layout= layout
 )
 fig.show()
+
+# Scatter Trace in Various graphs
+# base graph
+# drawing with data stocks
+# use rangeslider,rangeselector
+
+# Data containing missing values
+import plotly.graph_objects as go
+import numpy 
+line_x_not_null = numpy.arange(5)
+line_y_with_null = numpy.array([1,2,numpy.nan,4,5])
+with_null_fig = go.Figure()
+config1 = {
+    "x": line_x_not_null,
+    "y": line_y_with_null,
+    "name": "default",
+    "title": {'text': "欠損値を含むデーター"},
+}
+scatter1 = go.Scatter(
+    x=config1["x"],
+    y=config1["y"],
+    name=config1["name"],
+)
+with_null_fig.add_trace(scatter1)
+with_null_fig.update_layout(title=config1["title"])
+# Data ignoring missing values
+config2 = {
+    "x": line_x_not_null,
+    "y": line_y_with_null + 1,
+    "name": "connectgaps",
+    "connectgaps": True 
+}
+scatter2 = go.Scatter(
+    x=config2["x"],
+    y=config2["y"],
+    name=config2["name"],
+    connectgaps = config2["connectgaps"]
+)
+with_null_fig.add_trace(scatter2)
+with_null_fig.show()
+
+
